@@ -1,0 +1,22 @@
+h1 {
+  float: left;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #4267b2;
+  height: 50px;
+  padding: 20px;
+  color: white;
+}
+
+input {
+  border-radius: 2px;
+  border: white;
+  height: 17px;
+  padding: 5px;
+  margin: 15px;
+}
