@@ -112,7 +112,10 @@ handleWow = (i) => {
       <div className="CommentBox">
         <input value={this.state.commentBox} placeholder=" Write a comment..." onChange={this.handleChange} />
       <button onClick= {this.handleSubmit}>Submit</button>
+    <p>Comments:</p>
+    <div className="comments">
         {commentList}
+        </div>
       </div>
       </div>
     );
