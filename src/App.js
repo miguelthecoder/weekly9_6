@@ -10,84 +10,106 @@ class App extends Component {
     };
   };
 
-/// this bids it ...
+/// this bids it ... function = (param) =>
+
+// gathers the value of the input.
   handleChange = (event) => {
     this.setState ({
       commentBox: event.target.value
     });
   }
-
+  replyHandleChange = (event, i) => {
+      const copyState = Object.assign({} , this.state);
+      const comment = copyState.text[i];
+      comment.input=event.target.value
+      this.setState ({
+      copyState
+    })
+  }
+/// Submit button make's it work properly
   handleSubmit = () => {
+    /// if the input is empty return or stop from executing.
     if (this.state.commentBox === "") {
       return;
     }
+    // remember when copying state you have to copy the object
     const copyState = Object.assign({} , this.state);
     // string
     // copyState.commentList.push(this.state.commentBox);
     // object
-    copyState.commentList.push({comment: this.state.commentBox, likes:0, dislikes:0, love:0, laugh:0, wow:0, sad:0, mad:0 });
+    const comments ={
+      comment: this.state.commentBox,
+      likes:0,
+      dislikes:0,
+      love:0,
+      laugh:0,
+      wow:0,
+      sad:0,
+      mad:0,
+      replyBox:[],
+      replyInput:''
+    };
+    copyState.commentList.push(comments);
     copyState.commentBox = '';
     this.setState(copyState);
   }
+  handleAddReply(i) {
+      const copyState = Object.assign({} , this.state);
+      const comment = copyState.commentList[i]
+      if(comment.replyInput === "") {
+        return
+      }
+  const reply = {
+      comment: '',
+      likes:0,
+      dislikes:0,
+      love:0,
+      laugh:0,
+      wow:0,
+      sad:0,
+      mad:0,
+    };
+    comment.replyBox.push.reply;
+    comment.replyInput = "";
+    this.setState(copyState);
+}
   handleDelete = (i) => {
     const newState = Object.assign({} , this.state);
     newState.commentList.splice(i, 1);
     this.setState(newState);
   }
-  handleLikes = (i) => {
-    const CommentBox = this.state.commentList.slice();
-    CommentBox[i].likes++
-    this.setState({
-      commentList: CommentBox
-    })
-  }
-  handleDislikes = (i) => {
-    const CommentBox = this.state.commentList.slice();
-    CommentBox[i].dislikes++
-    this.setState({
-      commentList: CommentBox
-    })
-  }
-//////
-handleLove = (i) => {
+  handleLaugh = (i) => {
   const CommentBox = this.state.commentList.slice();
-  CommentBox[i].love++
-  this.setState({
-    commentList: CommentBox
-  })
-}
-handleLaugh = (i) => {
-  const CommentBox = this.state.commentList.slice();
-  CommentBox[i].laugh++
+  CommentBox[i].Laugh++
   this.setState({
     commentList: CommentBox
   })
 }
 handleWow = (i) => {
   const CommentBox = this.state.commentList.slice();
-  CommentBox[i].wow++
+  CommentBox[i].Wow++
   this.setState({
     commentList: CommentBox
   })
 }
  handleSad = (i) => {
     const CommentBox = this.state.commentList.slice();
-    CommentBox[i].sad++
+    CommentBox[i].Sad++
     this.setState({
       commentList: CommentBox
     })
   }
   handleMad = (i) => {
     const CommentBox = this.state.commentList.slice();
-    CommentBox[i].mad++
+    CommentBox[i].Mad++
     this.setState({
       commentList: CommentBox
     })
   }
   render() {
-    let commentList = this.state.commentList.map((comment, i) => {
+    const commentList = this.state.commentList.map((comment, i) => {
       return (
-        <div key={i}>
+        <div className="theComments"key={i}>
           <span>{comment.comment}</span>
           <div className="likes">
             <div className="reactions">
@@ -101,23 +123,24 @@ handleWow = (i) => {
             <button className="Delete" onClick={() => this.handleDelete(i)}>✖️</button>
           </div>
         </div>
-        </div>
+    </div>
       );
     })
     return (
+
       <div className="App">
         <div className="App-header">
-      <h1>RoadtohireBook</h1>
-      </div>
+          <h2>Road to Hire Book</h2>
+        </div>
       <div className="CommentBox">
         <input value={this.state.commentBox} placeholder=" Write a comment..." onChange={this.handleChange} />
-      <button onClick= {this.handleSubmit}>Submit</button>
-    <p>Comments:</p>
+        <button onClick= {this.handleSubmit}>Submit</button>
+          <p>Comments:</p>
     <div className="comments">
         {commentList}
-        </div>
+    </div>
       </div>
-      </div>
+    </div>
     );
   }
 }
